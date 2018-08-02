@@ -14,11 +14,13 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
 app.use('/api', apiRouter);
 
 app.use('/*', (req, res, next) => {
-    res.status(404).send({ msg: 'Page not found' });
+  res.status(404).send({ msg: 'Page not found' });
 })
 
 app.use((err, req, res, next) => {
-  res.status(500).send({error: err})
+  let {msg} = err
+  if(err.status) res.status(err.status).send({msg})
+  else res.status(500).send({error: err})
 })
 
 module.exports = app;

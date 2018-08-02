@@ -21,3 +21,28 @@ module.exports.getArticlesByTopic = (req, res, next) => {
             next(err)
         })
 }
+
+module.exports.postArticleToTopic = (req, res, next) => {
+    const { topic_slug } = req.params
+    Topic.findOne({slug: topic_slug})
+        .then((topic) => {
+            if(topic === null) throw{status: 404, msg: `topic ${topic_slug} cannot be found`}
+            else {
+                const newArticle = new Article({
+                    title: req.body.title,
+                    body: req.body.body,
+                    belongs_to: topic_slug,
+                    created_by: req.body.user,
+                    comments: 0,
+                    created_at: new Date().getTime()
+                });
+                return Article.create(newArticle)
+            }   
+        })
+        .then((article) => {
+            res.status(201).send({ posted: article })
+        })
+        .catch(err => {
+            next(err)
+        })
+}
