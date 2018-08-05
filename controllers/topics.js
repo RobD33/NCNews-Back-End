@@ -26,7 +26,7 @@ module.exports.postArticleToTopic = (req, res, next) => {
     const { topic_slug } = req.params
     Topic.findOne({slug: topic_slug})
         .then((topic) => {
-            if(topic === null) throw{status: 404, msg: `topic ${topic_slug} cannot be found`}
+            if(topic === null) return Promise.reject({status: 404, msg: `topic ${topic_slug} cannot be found`})
             else {
                 const newArticle = new Article({
                     title: req.body.title,
@@ -42,7 +42,5 @@ module.exports.postArticleToTopic = (req, res, next) => {
         .then((article) => {
             res.status(201).send({ posted: article })
         })
-        .catch(err => {
-            next(err)
-        })
+        .catch(next)
 }

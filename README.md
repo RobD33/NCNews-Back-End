@@ -58,71 +58,71 @@ Serves an HTML page with documentation for all the available endpoints
 
 
 ```http
-GET /api/topics
+GET /api/topics x
 ```
 
 Get all the toppings
 
 ```http
-GET /api/topics/:topic_slug/articles
+GET /api/topics/:topic_slug/articles x
 ```
 
 Return all the articles for a certain topic, e.g: `/api/topics/football/articles`
 
 ```http
-POST /api/topics/:topic_slug/articles
+POST /api/topics/:topic_slug/articles x
 ```
 
 Add a new article to a topic. This route requires a JSON body with title and body key value pairs
 e.g: `{ "title": "new article", "body": "This is my new article content"}`
 
 ```http
-GET /api/articles
+GET /api/articles x
 ```
 
 Returns all the articles
 
 ```http
-GET /api/articles/:article_id
+GET /api/articles/:article_id x
 ```
 
 Get an individual article
 
 ```http
-GET /api/articles/:article_id/comments
+GET /api/articles/:article_id/comments x
 ```
 
 Get all the comments for a individual article
 
 ```http
-POST /api/articles/:article_id/comments
+POST /api/articles/:article_id/comments x
 ```
 
 Add a new comment to an article. This route requires a JSON body with body and created_by key value pairs
 e.g: `{"body": "This is my new comment", "created_by": <mongo id for a user>}`
 
 ```http
-PUT /api/articles/:article_id
+PUT /api/articles/:article_id x
 ```
 
 Increment or Decrement the votes of an article by one. This route requires a vote query of 'up' or 'down'
 e.g: `/api/articles/:article_id?vote=up`
 
 ```http
-PUT /api/comments/:comment_id
+PUT /api/comments/:comment_id x
 ```
 
 Increment or Decrement the votes of a comment by one. This route requires a vote query of 'up' or 'down'
 e.g: `/api/comments/:comment_id?vote=down`
 
 ```http
-DELETE /api/comments/:comment_id
+DELETE /api/comments/:comment_id x
 ```
 
 Deletes a comment
 
 ```http
-GET /api/users/:username
+GET /api/users/:username x
 ```
 
 e.g: `/api/users/mitch123`

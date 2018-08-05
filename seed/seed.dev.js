@@ -11,3 +11,4 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
   .then(() => {
     mongoose.disconnect();
   })
+  .catch(console.log)
