@@ -2,7 +2,8 @@ const {Article, Comment} = require('../models');
 const mongoose = require('mongoose')
 
 exports.getArticles = (req, res, next) => {
-    Article.find().populate('created_by').then(articles => {
+    Article.find().populate('created_by')
+        .then(articles => {
             let promiseArticles = articles.map(article => {
                 return Comment.countDocuments({ belongs_to: `${article._id}`})
                         .then(commentCount => {
