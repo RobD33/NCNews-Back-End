@@ -11,7 +11,7 @@ module.exports.getTopics = (req, res, next) => {
 
 module.exports.getArticlesByTopic = (req, res, next) => {
     const {topic_slug} = req.params;
-    Article.find({belongs_to: `${topic_slug}`})
+    Article.find({belongs_to: `${topic_slug}`}).populate('created_by')
         .then(articles => {
             if (articles.length) res.send({articles})
             else res.status(404).send({msg:'no topic of that name'})
