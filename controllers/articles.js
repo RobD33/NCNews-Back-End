@@ -18,7 +18,8 @@ exports.getArticles = (req, res, next) => {
 exports.getArticleById = (req, res, next) => {
     const { article_id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(article_id)) next({status: 400, msg: `${article_id} is not a valid mongo _id`})
-    Article.findById(article_id).then((article) => {
+    Article.findById(article_id).populate('created_by')
+        .then((article) => {
         if(!article) return Promise.reject({status: 404, msg: `article ${article_id} cannot be found`})
         else{
             return Promise.all([
@@ -36,7 +37,7 @@ exports.getArticleById = (req, res, next) => {
 exports.getCommentsByArticleId = (req, res, next) => {
     const {article_id} = req.params;
     if (!mongoose.Types.ObjectId.isValid(article_id)) next({status: 400, msg: `${article_id} is not a valid mongo _id`})
-    Comment.find({ belongs_to: `${article_id}`})
+    Comment.find({ belongs_to: `${article_id}`}).populate('created_by')
         .then(comments => {
             if(!comments.length) return Promise.reject({status: 404, msg: `article ${article_id} cannot be found`})
             else {
