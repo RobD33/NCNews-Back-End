@@ -13,6 +13,15 @@ module.exports.getArticlesByTopic = (req, res, next) => {
     const {topic_slug} = req.params;
     Article.find({belongs_to: `${topic_slug}`}).populate('created_by')
         .then(articles => {
+            let promiseArticles = articles.map(article => {
+                return Comment.countDocuments({ belongs_to: `${article._id}`})
+                        .then(commentCount => {
+                            return { ...article.toObject(), comments: commentCount}
+                        })
+            })
+            return Promise.all(promiseArticles)
+        })
+        .then(articles => {
             if (articles.length) res.send({articles})
             else res.status(404).send({msg:'no topic of that name'})
         })
