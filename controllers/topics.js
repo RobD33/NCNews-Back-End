@@ -14,7 +14,7 @@ module.exports.getArticlesByTopic = (req, res, next) => {
     Article.find({belongs_to: `${topic_slug}`})
         .then(articles => {
             if (articles.length) res.send({articles})
-            else res.status(404).send({error:'no topic of that name'})
+            else res.status(404).send({msg:'no topic of that name'})
         })
         .catch(err => {
             console.log(err)

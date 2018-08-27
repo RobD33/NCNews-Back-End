@@ -63,7 +63,7 @@ describe('/', () => {
                 .get(`/api/topics/somethingRandom/articles`)
                 .expect(404) 
                 .then(res => {
-                    expect(res.body).to.eql({error:'no topic of that name'});
+                    expect(res.body).to.eql({msg:'no topic of that name'});
                 });
         });
     });
