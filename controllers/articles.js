@@ -40,10 +40,10 @@ exports.getCommentsByArticleId = (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(article_id)) next({status: 400, msg: `${article_id} is not a valid mongo _id`})
     Comment.find({ belongs_to: `${article_id}`}).populate('created_by')
         .then(comments => {
-            if(!comments.length) return Promise.reject({status: 404, msg: `article ${article_id} cannot be found`})
-            else {
+            // if(!comments.length) return Promise.reject({status: 404, msg: `article ${article_id} cannot be found`})
+            // else {
                 res.send({ comments })
-            }
+            //}
         })
         .catch(next)
 }
