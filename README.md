@@ -50,6 +50,8 @@ const config = {
     DB_URL: "mongodb://localhost:27017/northcoders_news_test"
   }
 };
+
+module.exports = config;
 ```
 4. You can now run Mongo and start the tests. Run 'mongod' in a separate terminal window using the following command:
 
